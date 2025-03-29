@@ -55,7 +55,7 @@ const Login = () => {
         .then(response => {
             if (response.data.access_token) {
                 localStorage.setItem("token", response.data.access_token);
-                navigate("/users/crearusuario");
+                navigate("/users/usuarios");
                 window.location.reload();
             } else {
                 manejarIntentoFallido();
