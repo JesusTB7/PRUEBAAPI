@@ -6,13 +6,10 @@ import "./styles2.css";
 const UsuarioForm = () => {
     const navigate = useNavigate();
     const [usuario, setUsuario] = useState({
-        nombre: "",
-        app: "",
-        apm: "",
-        fn: "",
-        sexo: "",
-        correo: "",
-        contrasena: ""
+        name: "",
+        email: "",
+        last_name: "",
+        password: ""
     });
 
     const [loading, setLoading] = useState(false);
@@ -27,20 +24,19 @@ const UsuarioForm = () => {
         e.preventDefault();
         setLoading(true);
         
-        axios.post("https://startupvje.vje.x10.mx/users/crearusuario", usuario)
-    .then(() => {
-        setLoading(false);
-        setSuccess(true);
-        console.log("Registro exitoso. Redirigiendo...");
-        setTimeout(() => {
-            navigate("/users/login");
-        }, 2000);
-    })
-    .catch(error => {
-        console.error(error);
-        setLoading(false);
-    });
-
+        axios.post("https://3.129.72.234/users/crearusuario", usuario)
+            .then(() => {
+                setLoading(false);
+                setSuccess(true);
+                console.log("Registro exitoso. Redirigiendo...");
+                setTimeout(() => {
+                    navigate("/users/login");
+                }, 2000);
+            })
+            .catch(error => {
+                console.error(error);
+                setLoading(false);
+            });
     };
 
     return (
@@ -57,40 +53,25 @@ const UsuarioForm = () => {
                 </div>
             ) : (
                 <form onSubmit={handleSubmit}>
-                    <label htmlFor="nombre">Nombre</label>
-                    <input type="text" name="nombre" placeholder="Nombre" onChange={handleChange} required />
+                    <label htmlFor="name">Nombre</label>
+                    <input type="text" name="name" placeholder="Nombre" onChange={handleChange} required />
 
-                    <label htmlFor="app">Apellido Paterno</label>
-                    <input type="text" name="app" placeholder="Apellido Paterno" onChange={handleChange} required />
+                    <label htmlFor="email">Correo</label>
+                    <input type="email" name="email" placeholder="Correo" onChange={handleChange} required />
 
-                    <label htmlFor="apm">Apellido Materno</label>
-                    <input type="text" name="apm" placeholder="Apellido Materno" onChange={handleChange} required />
+                    <label htmlFor="last_name">Apellido</label>
+                    <input type="text" name="last_name" placeholder="Apellido" onChange={handleChange} required />
 
-                    <label htmlFor="fn">Fecha de Nacimiento</label>
-                    <input type="date" name="fn" onChange={handleChange} required />
-
-                    <label htmlFor="sexo">Sexo</label>
-                    <select name="sexo" value={usuario.sexo} onChange={handleChange} required>
-                        <option value="">Seleccione una opción</option>
-                        <option value="Femenino">Femenino</option>
-                        <option value="Masculino">Masculino</option>
-                        <option value="Otro">Otro</option>
-                    </select>
-
-                    <label htmlFor="correo">Correo</label>
-                    <input type="email" name="correo" placeholder="Correo" onChange={handleChange} required />
-
-                    <label htmlFor="contrasena">Contraseña</label>
-<input 
-  type="password" 
-  name="contrasena" 
-  placeholder="Contraseña" 
-  onChange={handleChange} 
-  required 
-  pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$" 
-  title="La contraseña debe tener al menos 8 caracteres, una mayúscula, un número y un símbolo como #, @, $, etc."
-/>
-
+                    <label htmlFor="password">Contraseña</label>
+                    <input 
+                        type="password" 
+                        name="password" 
+                        placeholder="Contraseña" 
+                        onChange={handleChange} 
+                        required 
+                        pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$" 
+                        title="La contraseña debe tener al menos 8 caracteres, una mayúscula, un número y un símbolo como #, @, $, etc."
+                    />
 
                     <button type="submit">Agregar Usuario</button>
                     <p><span onClick={() => navigate("/users/login")} style={{ cursor: "pointer", color: "blue", textDecoration: "none" }}>Regresar al Inicio</span></p>
@@ -99,7 +80,6 @@ const UsuarioForm = () => {
         </div>
     );
 };
-
 
 const styles = {
     formContainer: {
@@ -155,6 +135,5 @@ styleTag.innerHTML = `
     }
 `;
 document.head.appendChild(styleTag);
-
 
 export default UsuarioForm;

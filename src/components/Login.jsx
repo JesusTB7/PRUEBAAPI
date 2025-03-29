@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "./Login.css"; 
+import "./Login.css";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -49,24 +49,19 @@ const Login = () => {
         setLoading(true);
         setError("");
         
-        axios.post("https://startupvje.vje.x10.mx/users/login", usuario, {
+        axios.post("https://3.129.72.234/users/login", usuario, {
             headers: { "Content-Type": "application/json" }
         })
         .then(response => {
-            console.log("Respuesta completa del backend:", response.data);
-        
             if (response.data.access_token) {
-                console.log("Token recibido:", response.data.access_token);
                 localStorage.setItem("token", response.data.access_token);
-                navigate("/principal");
+                navigate("/users/usuarios");
                 window.location.reload();
             } else {
-                console.warn("No se recibió un token en la respuesta.");
                 manejarIntentoFallido();
             }
         })
-        .catch(error => {
-            console.error("Error en la solicitud:", error.response ? error.response.data : error);
+        .catch(() => {
             manejarIntentoFallido();
         });
     };
@@ -99,30 +94,12 @@ const Login = () => {
     };
 
     return (
-        <div 
-            className="form-container"
-            style={{
-                backgroundImage: 'url("https://s3.amazonaws.com/arc-wordpress-client-uploads/infobae-wp/wp-content/uploads/2019/08/07143403/Desfile_Residual-3.jpg")',
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                backgroundRepeat: "no-repeat",
-                width: "80vw",
-                height: "80vh",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center"
-            }}
-        >
+        <div className="form-container">
             <div className="form-box">
-                <img 
-                    src="/img/Logo.jpg" 
-                    alt="Login" 
-                    className="login-image"
-                />
                 <h2>Iniciar Sesión</h2>
                 <form onSubmit={handleLogin}>
                     <label>Email</label>
-                    <input type="email" name="correo" placeholder="Correo electrónico" value={usuario.correo} onChange={handleChange} required disabled={bloqueado} />
+                    <input type="email" name="correo" placeholder="Correo electrónico" value={usuario.email} onChange={handleChange} required disabled={bloqueado} />
 
                     <label>Contraseña</label>
                     <div className="password-container">
@@ -130,7 +107,7 @@ const Login = () => {
                             type={mostrarContrasena ? "text" : "password"} 
                             name="contrasena" 
                             placeholder="Contraseña" 
-                            value={usuario.contrasena} 
+                            value={usuario.password} 
                             onChange={handleChange} 
                             required 
                             disabled={bloqueado} 
@@ -156,78 +133,8 @@ const Login = () => {
                         ¿No tiene cuenta? {" "}
                         <span onClick={() => navigate("/users/crearusuario")} style={{ cursor: "pointer", color: "blue", textDecoration: "none" }}>Regístrese</span>
                     </p>
-                    <p>
-                        ¿Has olvidado tu contraseña? {" "}
-                        <span onClick={() => navigate("/users/recuperar")} style={{ cursor: "pointer", color: "blue", textDecoration: "none" }}>Recupérala aquí</span>
-                    </p>
                 </form>
             </div>
-
-            <style>
-                {`
-                    .form-box {
-                        background: rgba(169, 169, 169, 0.8); /* Fondo gris */
-                        padding: 20px;
-                        border-radius: 10px;
-                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-                        width: 900px;
-                        text-align: center;
-                        animation: fadeIn 0.8s ease-in-out;
-                    }
-
-                    .login-image {
-                        width: 100px;
-                        height: auto;
-                        display: block;
-                        margin: 0 auto 10px; /* Centra la imagen y agrega margen inferior */
-                    }
-
-                    .loading-animation {
-                        font-size: 16px;
-                        font-weight: bold;
-                        color: #007bff;
-                        animation: fade 1s infinite alternate;
-                    }
-
-                    .error-message {
-                        color: red;
-                        font-size: 14px;
-                        margin-top: 10px;
-                    }
-
-                    @keyframes fade {
-                        from { opacity: 0.5; }
-                        to { opacity: 1; }
-                    }
-
-                    @keyframes fadeIn {
-                        from { opacity: 0; transform: translateY(50px); }
-                        to { opacity: 1; transform: translateY(0); }
-                    }
-
-                    .password-container {
-                        position: relative;
-                    }
-
-                    .toggle-password {
-                        position: absolute;
-                        right: 10px;
-                        top: 10px;
-                        cursor: pointer;
-                        color: #007bff;
-                    }
-
-                    button {
-                        cursor: pointer;
-                        transition: background-color 0.3s;
-                    }
-
-                    button:hover {
-                        background-color: #0056b3;
-                        color: white;
-                    }
-                `}
-            </style>
         </div>
     );
 };

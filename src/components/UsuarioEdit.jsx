@@ -4,23 +4,20 @@ import axios from "axios";
 import "./styles2.css";
 
 const UsuarioEdit = () => {
-    const { id_usuarios } = useParams();
+    const { id } = useParams();
     const navigate = useNavigate();
     const [usuario, setUsuario] = useState({
-        nombre: "",
-        app: "",
-        apm: "",
-        fn: "",
-        sexo: "",
-        correo: "",
-        contrasena: ""
+        name: "",
+        email: "",
+        last_name: "",
+        password: ""
     });
     const [isLoading, setIsLoading] = useState(true);
     const [isUpdating, setIsUpdating] = useState(false);
     const [message, setMessage] = useState("");
 
     useEffect(() => {
-        axios.get(`https://startupvje.vje.x10.mx/users/usuario/${id_usuarios}`)
+        axios.get(`https://startupvje.vje.x10.mx/users/usuario/${id}`)
             .then(response => {
                 console.log("Datos recibidos:", response.data);
                 setUsuario(response.data);
@@ -30,7 +27,7 @@ const UsuarioEdit = () => {
                 console.error("Error al cargar el usuario:", error);
                 setIsLoading(false);
             });
-    }, [id_usuarios]);
+    }, [id]);
 
     const handleChange = (e) => {
         setUsuario({ ...usuario, [e.target.name]: e.target.value });
@@ -41,7 +38,7 @@ const UsuarioEdit = () => {
         setIsUpdating(true);
         setMessage("Actualizando usuario...");
 
-        axios.put(`https://startupvje.vje.x10.mx/users/actualizarusuario/${id_usuarios}`, usuario)
+        axios.put(`https://3.129.72.234/users/actualizarusuario/${id}`, usuario)
             .then(response => {
                 console.log("Respuesta del servidor:", response.data);
                 setMessage("Actualización exitosa. Redirigiendo...");
@@ -64,32 +61,20 @@ const UsuarioEdit = () => {
                 <p className="loading-message">{message}</p>
             ) : (
                 <form onSubmit={handleSubmit}>
-                    <label htmlFor="nombre">Nombre</label>
-                    <input type="text" name="nombre" value={usuario.nombre} onChange={handleChange} required />
+                    <label htmlFor="name">Nombre</label>
+                    <input type="text" name="name" value={usuario.name} onChange={handleChange} required />
 
-                    <label htmlFor="app">Apellido Paterno</label>
-                    <input type="text" name="app" value={usuario.app} onChange={handleChange} required />
+                    <label htmlFor="email">Correo</label>
+                    <input type="email" name="email" value={usuario.email} onChange={handleChange} required />
 
-                    <label htmlFor="apm">Apellido Materno</label>
-                    <input type="text" name="apm" value={usuario.apm} onChange={handleChange} required />
+                    <label htmlFor="last_name">Apellido</label>
+                    <input type="text" name="last_name" value={usuario.last_name} onChange={handleChange} required />
 
-                    <label htmlFor="fn">Fecha de Nacimiento</label>
-                    <input type="date" name="fn" value={usuario.fn ? new Date(usuario.fn).toISOString().split('T')[0] : ""} onChange={handleChange} required />
-
-                    <label htmlFor="sexo">Sexo</label>
-                    <select name="sexo" value={usuario.sexo} onChange={handleChange} required>
-                        <option value="">Seleccione una opción</option>
-                        <option value="Femenino">Femenino</option>
-                        <option value="Masculino">Masculino</option>
-                        <option value="Otro">Otro</option>
-                    </select>
-
-                    <label htmlFor="correo">Correo</label>
-                    <input type="email" name="correo" value={usuario.correo} onChange={handleChange} required />
-
-                    <label htmlFor="contrasena">Contraseña</label>
-                    <input type="password" name="contrasena" value={usuario.contrasena} onChange={handleChange} required pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$" title="La contraseña debe tener al menos 8 caracteres, una mayúscula, un número y un símbolo como #, @, $, etc."/>
-
+                    <label htmlFor="password">Contraseña</label>
+                    <input type="password" name="password" value={usuario.password} onChange={handleChange} required 
+                        pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$" 
+                        title="La contraseña debe tener al menos 8 caracteres, una mayúscula, un número y un símbolo como #, @, $, etc." 
+                    />
 
                     <div className="button-group">
                         <button type="submit" disabled={isUpdating}>
