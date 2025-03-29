@@ -36,7 +36,7 @@ const UsuarioList = () => {
     };
 
     const handleRegresar = () => {
-        navigate("/users/usuarios");
+        navigate("/users/login");
     };
 
     // Filtrado de usuarios basado en el nombre o correo
@@ -107,7 +107,7 @@ const UsuarioList = () => {
                         width: "100px"
                     }}
                 >
-                    Regresar
+                    Cerrar 
                 </button>
             </div>
         </div>
