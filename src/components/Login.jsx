@@ -5,7 +5,7 @@ import "./Login.css";
 
 const Login = () => {
     const navigate = useNavigate();
-    const [usuario, setUsuario] = useState({ correo: "", contrasena: "" });
+    const [usuario, setUsuario] = useState({ email: "", password: "" });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [bloqueado, setBloqueado] = useState(false);
@@ -24,7 +24,7 @@ const Login = () => {
                         if (prev <= 1) {
                             clearInterval(interval);
                             setBloqueado(false);
-                            setUsuario({ correo: "", contrasena: "" });
+                            setUsuario({ email: "", password: "" });
                             setError("");
                             localStorage.removeItem("bloqueo");
                             return 0;
@@ -98,13 +98,13 @@ const Login = () => {
                 <h2>Iniciar Sesión</h2>
                 <form onSubmit={handleLogin}>
                     <label>Email</label>
-                    <input type="email" name="correo" placeholder="Correo electrónico" value={usuario.email} onChange={handleChange} required disabled={bloqueado} />
+                    <input type="email" name="email" placeholder="Correo electrónico" value={usuario.email} onChange={handleChange} required disabled={bloqueado} />
 
                     <label>Contraseña</label>
                     <div className="password-container">
                         <input 
                             type={mostrarContrasena ? "text" : "password"} 
-                            name="contrasena" 
+                            name="password" 
                             placeholder="Contraseña" 
                             value={usuario.password} 
                             onChange={handleChange} 

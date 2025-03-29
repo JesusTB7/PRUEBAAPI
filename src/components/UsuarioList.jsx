@@ -24,7 +24,7 @@ const UsuarioList = () => {
                 headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
             })
             .then(() => {
-                setUsuarios(prevUsuarios => prevUsuarios.filter(usuario => usuario.id_usuarios !== id));
+                setUsuarios(prevUsuarios => prevUsuarios.filter(usuario => usuario.id !== id));
             })
             .catch(error => console.error("Error al eliminar usuario:", error));
         }

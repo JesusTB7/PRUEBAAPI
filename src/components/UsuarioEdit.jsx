@@ -7,6 +7,7 @@ const UsuarioEdit = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const [usuario, setUsuario] = useState({
+        id: "",
         name: "",
         email: "",
         last_name: "",
@@ -61,6 +62,9 @@ const UsuarioEdit = () => {
                 <p className="loading-message">{message}</p>
             ) : (
                 <form onSubmit={handleSubmit}>
+                    <label htmlFor="id">ID</label>
+                    <input type="text" name="id" value={usuario.id} onChange={handleChange} required disabled />
+
                     <label htmlFor="name">Nombre</label>
                     <input type="text" name="name" value={usuario.name} onChange={handleChange} required />
 
