@@ -38,18 +38,18 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 
             <Route
                 path="/users/usuarios"
-                element={isAuthenticated() ? <HomeTabla /> : <Navigate to="/principal" />}
+                element={isAuthenticated() ? <HomeTabla /> : <Navigate to="/users/usuarios" />}
             />
     
 
             <Route
                 path="/users/usuario"
-                element={isAuthenticated() ? <HomeUsuario /> : <Navigate to="/principal" />}
+                element={isAuthenticated() ? <HomeUsuario /> : <Navigate to="/users/usuarios" />}
             />
 
             <Route
-                path="/users/actualizarusuario/:id_usuarios"
-                element={isAuthenticated() ? <UsuarioEdit /> : <Navigate to="/principal" />}
+                path="/users/actualizarusuario/:id"
+                element={isAuthenticated() ? <UsuarioEdit /> : <Navigate to="/users/usuarios" />}
             />
             
 
