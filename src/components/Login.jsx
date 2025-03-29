@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "./Login.css";
+import "./Login.css"; 
 
 const Login = () => {
     const navigate = useNavigate();
     const [usuario, setUsuario] = useState({ email: "", password: "" });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    const [intentos, setIntentos] = useState(0);
     const [bloqueado, setBloqueado] = useState(false);
     const [tiempoRestante, setTiempoRestante] = useState(0);
     const [mostrarContrasena, setMostrarContrasena] = useState(false);
-    const [intentos, setIntentos] = useState(0);
 
     useEffect(() => {
         const bloqueo = localStorage.getItem("bloqueo");
@@ -42,31 +42,28 @@ const Login = () => {
         setUsuario({ ...usuario, [e.target.name]: e.target.value });
     };
 
-    const handleLogin = async (e) => {
+    const handleLogin = (e) => {
         e.preventDefault();
         if (bloqueado) return;
 
         setLoading(true);
         setError("");
-        console.log("Datos enviados:", usuario);
-
-        try {
-            const response = await axios.post("https://3.129.72.234/users/login", usuario, {
-                headers: { "Content-Type": "application/json", "Accept": "application/json" }
-            });
-            console.log("Respuesta del servidor:", response.data);
-
+        
+        axios.post("https://3.129.72.234/users/login", usuario, {
+            headers: { "Content-Type": "application/json" }
+        })
+        .then(response => {
             if (response.data.access_token) {
                 localStorage.setItem("token", response.data.access_token);
-                navigate("/users/usuarios");
+                navigate("/principal");
                 window.location.reload();
             } else {
                 manejarIntentoFallido();
             }
-        } catch (error) {
-            console.error("Error en la petición:", error.response ? error.response.data : error.message);
+        })
+        .catch(() => {
             manejarIntentoFallido();
-        }
+        });
     };
 
     const manejarIntentoFallido = () => {
