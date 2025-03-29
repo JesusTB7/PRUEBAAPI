@@ -49,13 +49,13 @@ const Login = () => {
         setLoading(true);
         setError("");
         
-        axios.post("https://3.129.72.234/users/login", usuario, {
+        axios.post("https://3.129.72.234/api/users/login", usuario, {
             headers: { "Content-Type": "application/json" }
         })
         .then(response => {
             if (response.data.access_token) {
                 localStorage.setItem("token", response.data.access_token);
-                navigate("/principal");
+                navigate("/api/users/crearusuario");
                 window.location.reload();
             } else {
                 manejarIntentoFallido();
