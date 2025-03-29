@@ -8,7 +8,6 @@ const Login = () => {
     const [usuario, setUsuario] = useState({ correo: "", contrasena: "" });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
-    const [intentos, setIntentos] = useState(0);
     const [bloqueado, setBloqueado] = useState(false);
     const [tiempoRestante, setTiempoRestante] = useState(0);
     const [mostrarContrasena, setMostrarContrasena] = useState(false);
