@@ -79,7 +79,7 @@ const Login = () => {
                         if (prev <= 1) {
                             clearInterval(interval);
                             setBloqueado(false);
-                            setUsuario({ correo: "", contrasena: "" });
+                            setUsuario({ email: "", password: "" });
                             setError("");
                             localStorage.removeItem("bloqueo");
                             return 0;
