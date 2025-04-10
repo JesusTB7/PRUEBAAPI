@@ -64,7 +64,6 @@ const UsuarioList = () => {
                         <th>NOMBRE</th>
                         <th>CORREO</th>
                         <th>APELLIDO</th>
-                        <th>CONTRASEÑA</th>
                         <th>ACCIONES</th>
                     </tr>
                 </thead>
@@ -76,7 +75,6 @@ const UsuarioList = () => {
                                 <td>{usuario.name}</td>
                                 <td>{usuario.email}</td>
                                 <td>{usuario.last_name}</td>
-                                <td>{usuario.password}</td>
                                 <td>
                                     <Link to={`/users/actualizarusuario/${usuario.id}`}>
                                         <button>Editar</button>
