@@ -84,3 +84,23 @@ span:hover {
         transform: translateY(0); /* Vuelve a su posición original */
     }
 }
+
+.password-container {
+    position: relative; /* Permite que los elementos dentro puedan posicionarse de manera relativa o absoluta */
+    display: flex; /* Utiliza Flexbox para alinear el contenido en una fila */
+    align-items: center; /* Centra verticalmente el contenido dentro del contenedor */
+}
+
+.password-container input {
+    padding-right: 30px; /* Añade espacio a la derecha para dejar espacio al icono */
+}
+
+.toggle-password {
+    position: absolute; /* Posiciona el icono dentro del contenedor */
+    right: 10px; /* Coloca el icono 10px a la derecha del borde del campo de entrada */
+    font-size: 18px; /* Ajusta el tamaño del icono */
+    top: 40%; /* Coloca el icono en el centro vertical del contenedor */
+    transform: translateY(-50%); /* Ajusta el icono para que quede perfectamente centrado verticalmente */
+}
+
+

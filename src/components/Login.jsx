@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import "font-awesome/css/font-awesome.min.css"; // Agrega esta línea
 import "./Login.css"; 
 
 const Login = () => {
@@ -115,8 +116,9 @@ const Login = () => {
                         <span 
                             className="toggle-password" 
                             onClick={() => setMostrarContrasena(!mostrarContrasena)}
+                            style={{ cursor: "pointer", marginLeft: "8px" }}
                         >
-                            {mostrarContrasena ? "Ocultar" : "Ver"}
+                            <i className={`fa ${mostrarContrasena ? "fa-eye-slash" : "fa-eye"}`} /> {/* Aquí usamos los iconos de FontAwesome */}
                         </span>
                     </div>
                     

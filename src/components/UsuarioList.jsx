@@ -7,6 +7,9 @@ const UsuarioList = () => {
     const [usuarios, setUsuarios] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [usuarioDetalle, setUsuarioDetalle] = useState(null);
+    const [currentPage, setCurrentPage] = useState(1);
+    const usuariosPorPagina = 3;
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -42,13 +45,29 @@ const UsuarioList = () => {
     };
 
     const handleRegresar = () => {
-        setUsuarioDetalle(null); // Regresa a la tabla
+        setUsuarioDetalle(null);
+    };
+
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        navigate("/users/login");
     };
 
     const filteredUsers = usuarios.filter(usuario =>
         usuario.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         usuario.email.toLowerCase().includes(searchTerm.toLowerCase())
     );
+
+    // Paginado
+    const totalPages = Math.ceil(filteredUsers.length / usuariosPorPagina);
+    const startIndex = (currentPage - 1) * usuariosPorPagina;
+    const usuariosPaginados = filteredUsers.slice(startIndex, startIndex + usuariosPorPagina);
+
+    const cambiarPagina = (nuevaPagina) => {
+        if (nuevaPagina >= 1 && nuevaPagina <= totalPages) {
+            setCurrentPage(nuevaPagina);
+        }
+    };
 
     return (
         <div>
@@ -75,8 +94,8 @@ const UsuarioList = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {filteredUsers.length > 0 ? (
-                                filteredUsers.map(usuario => (
+                            {usuariosPaginados.length > 0 ? (
+                                usuariosPaginados.map(usuario => (
                                     <tr key={usuario.id}>
                                         <td>{usuario.id}</td>
                                         <td>{usuario.name}</td>
@@ -93,14 +112,42 @@ const UsuarioList = () => {
                                 ))
                             ) : (
                                 <tr>
-                                    <td colSpan="6">No hay usuarios</td>
+                                    <td colSpan="5">No hay usuarios</td>
                                 </tr>
                             )}
                         </tbody>
                     </table>
+
+                    {/* Paginación tipo texto con la página actual */}
+                    <div style={{ textAlign: "center", marginTop: "10px", fontSize: "14px" }}>
+                        <span
+                            onClick={() => cambiarPagina(currentPage - 1)}
+                            style={{
+                                marginRight: "20px",
+                                color: currentPage === 1 ? "#ccc" : "blue",
+                                cursor: currentPage === 1 ? "default" : "pointer",
+                                textDecoration: currentPage === 1 ? "none" : "underline"
+                            }}
+                        >
+                            ← Anterior
+                        </span>
+                        <span>
+                            Página {currentPage} de {totalPages}
+                        </span>
+                        <span
+                            onClick={() => cambiarPagina(currentPage + 1)}
+                            style={{
+                                marginLeft: "20px",
+                                color: currentPage === totalPages ? "#ccc" : "blue",
+                                cursor: currentPage === totalPages ? "default" : "pointer",
+                                textDecoration: currentPage === totalPages ? "none" : "underline"
+                            }}
+                        >
+                            Siguiente →
+                        </span>
+                    </div>
                 </>
             ) : (
-                // Vista de detalle
                 <div style={{
                     border: "1px solid #ccc",
                     borderRadius: "10px",
@@ -117,8 +164,43 @@ const UsuarioList = () => {
                     <p><strong>Apellido:</strong> {usuarioDetalle.last_name}</p>
                     <p><strong>Correo:</strong> {usuarioDetalle.email}</p>
                     <div style={{ textAlign: "center", marginTop: "20px" }}>
-                        <button onClick={handleRegresar}>Regresar a la lista</button>
+                        {/* Convertir el enlace en un botón */}
+                        <button
+                            onClick={handleRegresar}
+                            style={{
+                                backgroundColor: "blue",
+                                color: "white",
+                                padding: "10px 20px",
+                                border: "none",
+                                borderRadius: "5px",
+                                cursor: "pointer",
+                                fontSize: "14px"
+                            }}
+                        >
+                            Regresar a la lista
+                        </button>
                     </div>
+                </div>
+            )}
+
+            {/* Botón de cerrar sesión solo visible si no estamos en el detalle del usuario */}
+            {!usuarioDetalle && (
+                <div style={{ marginTop: "20px", textAlign: "center" }}>
+                    <button
+                        onClick={handleLogout}
+                        style={{
+                            backgroundColor: "red",
+                            color: "white",
+                            fontSize: "12px",
+                            padding: "5px 10px",
+                            border: "none",
+                            borderRadius: "5px",
+                            cursor: "pointer",
+                            width: "100px"
+                        }}
+                    >
+                        Cerrar
+                    </button>
                 </div>
             )}
         </div>
