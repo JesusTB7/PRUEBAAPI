@@ -39,7 +39,7 @@ const UsuarioEdit = () => {
         setIsUpdating(true);
         setMessage("Actualizando usuario...");
 
-        axios.put(`https://3.129.72.234/users/actualizarusuario/${id}`, usuario)
+        axios.put(`https://3.17.81.51/users/actualizarusuario/${id}`, usuario)
             .then(response => {
                 console.log("Respuesta del servidor:", response.data);
                 setMessage("Actualización exitosa. Redirigiendo...");
