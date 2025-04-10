@@ -20,7 +20,7 @@ import UsuarioForm from "./components/UsuarioForm";
 
 
 import HomeUsuario from "./pages/HomeUsuario";
-
+import HomeDetalle from "./pages/HomeDetalle";
 
 // Función para verificar si el usuario está autenticado
 const isAuthenticated = () => {
@@ -39,6 +39,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <Route
                 path="/users/usuarios"
                 element={isAuthenticated() ? <HomeTabla /> : <Navigate to="/users/usuarios" />}
+            />
+
+            <Route
+                path="/users/usuario"
+                element={isAuthenticated() ? <HomeDetalle /> : <Navigate to="/users/usuarios" />}
             />
     
 
