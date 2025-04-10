@@ -18,7 +18,7 @@ const UsuarioEdit = () => {
     const [message, setMessage] = useState("");
 
     useEffect(() => {
-        axios.get(`https://3.129.72.234/users/usuario/${id}`)
+        axios.get(`https://3.17.81.51/users/usuario/${id}`)
             .then(response => {
                 console.log("Datos recibidos:", response.data);
                 setUsuario(response.data);
