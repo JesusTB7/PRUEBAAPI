@@ -2,22 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
-
 import HomeTabla from "./pages/HomeTabla"; 
-
-
 
 import UsuarioEdit from "./components/UsuarioEdit";
 
-
-
 import Login from "./components/Login";
 
-
-
-
 import UsuarioForm from "./components/UsuarioForm";
-
 
 import HomeUsuario from "./pages/HomeUsuario";
 import HomeDetalle from "./pages/HomeDetalle";

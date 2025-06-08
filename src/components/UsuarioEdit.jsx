@@ -17,6 +17,9 @@ const UsuarioEdit = () => {
     const [isUpdating, setIsUpdating] = useState(false);
     const [message, setMessage] = useState("");
 
+    // Estado para mostrar/ocultar contraseña
+    const [mostrarContrasena, setMostrarContrasena] = useState(false);
+
     useEffect(() => {
         axios.get(`https://18.217.72.171/users/usuario/${id}`)
             .then(response => {
@@ -55,7 +58,7 @@ const UsuarioEdit = () => {
     return (
         <div className="form-container">
             <h2>Editar Usuario</h2>
-            
+
             {isLoading ? (
                 <p className="loading-message">Cargando datos del usuario...</p>
             ) : isUpdating ? (
@@ -75,12 +78,28 @@ const UsuarioEdit = () => {
                     <input type="text" name="last_name" value={usuario.last_name} onChange={handleChange} required />
 
                     <label htmlFor="password">Contraseña</label>
-                    <input type="password" name="password" value={usuario.password} onChange={handleChange} required 
-                        pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$" 
-                        title="La contraseña debe tener al menos 8 caracteres, una mayúscula, un número y un símbolo como #, @, $, etc." 
-                    />
+                    <div className="password-container" style={{ display: "flex", alignItems: "center" }}>
+                        <input 
+                            type={mostrarContrasena ? "text" : "password"} 
+                            name="password" 
+                            value={usuario.password} 
+                            onChange={handleChange} 
+                            required
+                            pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$"
+                            title="La contraseña debe tener al menos 8 caracteres, una mayúscula, un número y un símbolo como #, @, $, etc."
+                            style={{ flexGrow: 1 }}
+                        />
+                        <span 
+                            className="toggle-password" 
+                            onClick={() => setMostrarContrasena(!mostrarContrasena)} 
+                            style={{ cursor: "pointer", marginLeft: "8px", userSelect: "none" }}
+                            title={mostrarContrasena ? "Ocultar contraseña" : "Mostrar contraseña"}
+                        >
+                            <i className={`fa ${mostrarContrasena ? "fa-eye-slash" : "fa-eye"}`} />
+                        </span>
+                    </div>
 
-                    <div className="button-group">
+                    <div className="button-group" style={{ marginTop: "20px" }}>
                         <button type="submit" disabled={isUpdating}>
                             {isUpdating ? "Cargando..." : "Actualizar Usuario"}
                         </button>
