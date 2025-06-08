@@ -68,12 +68,3 @@ button:hover {
     background-color: #a71d2a;
 }
 
-.password-container {
-    display: flex;
-    align-items: center;
-}
-
-.toggle-password {
-    color: #333;
-}
-

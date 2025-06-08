@@ -62,28 +62,16 @@ const UsuarioForm = () => {
                     <label htmlFor="last_name">Apellido</label>
                     <input type="text" name="last_name" placeholder="Apellido" onChange={handleChange} required />
 
-                   <label htmlFor="password">Contraseña</label>
-<div className="password-container">
-    <input 
-        type={mostrarContrasena ? "text" : "password"} 
-        name="password" 
-        id="password"
-        placeholder="Contraseña" 
-        value={usuario.password} 
-        onChange={handleChange} 
-        required 
-        pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$"
-        title="La contraseña debe tener al menos 8 caracteres, una mayúscula, un número y un símbolo como #, @, $, etc."
-        disabled={bloqueado} 
-    />
-    <span 
-        className="toggle-password" 
-        onClick={() => setMostrarContrasena(!mostrarContrasena)}
-        style={{ cursor: "pointer", marginLeft: "8px" }}
-    >
-        <i className={`fa ${mostrarContrasena ? "fa-eye-slash" : "fa-eye"}`} />
-    </span>
-</div>
+                    <label htmlFor="password">Contraseña</label>
+                    <input 
+                        type="password" 
+                        name="password" 
+                        placeholder="Contraseña" 
+                        onChange={handleChange} 
+                        required 
+                        pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$" 
+                        title="La contraseña debe tener al menos 8 caracteres, una mayúscula, un número y un símbolo como #, @, $, etc."
+                    />
 
                     <button type="submit">Agregar Usuario</button>
                     <p><span onClick={() => navigate("/users/login")} style={{ cursor: "pointer", color: "blue", textDecoration: "none" }}>Regresar al Inicio</span></p>
